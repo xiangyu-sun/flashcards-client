@@ -1,0 +1,27 @@
+.Flashcards {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex: 3;
+}
+
+.Flashcards-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+}
+
+.Flashcards-index {
+  position: absolute;
+  bottom: 50px;
+  right: 0;
+  left: 0;
+  text-align: center;
+}
+
+.Flashcards-button {
+  margin: 0 50px;
+}

@@ -1,0 +1,11 @@
+.Tags {
+  display: flex;
+  flex: 1;
+}
+
+.Tags-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}

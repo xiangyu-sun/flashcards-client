@@ -1,0 +1,17 @@
+.Flashcard-question,
+.Flashcard-answer {
+  min-height: 200px;
+}
+
+.Flashcard-question p,
+.Flashcard-answer p {
+  font-size: 18px;
+}
+
+.Flashcard-menu {
+  text-align: right;
+}
+
+.Flashcard-actions {
+  justify-content: center;
+}
