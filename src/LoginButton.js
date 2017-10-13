@@ -4,7 +4,7 @@ import GithubIcon from './GithubIcon';
 import './LoginButton.css';
 
 const authorizeUrl = 'https://github.com/login/oauth/authorize'
-const clientId = '7f7d6103e2acb6a28cb7'
+const clientId = 'f56fa512c1d1b83b8e2b'
 const scope = 'user'
 
 class LoginButton extends Component {
