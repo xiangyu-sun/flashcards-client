@@ -5,9 +5,9 @@ import Autocomplete from 'react-toolbox/lib/autocomplete/Autocomplete';
 import './FlashcardDialog.css'
 
 class FlashcardDialog extends Component {
+  
   constructor(props) {
     super(props);
-
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeTags = this.handleChangeTags.bind(this);
     this.handleClickCancel = this.handleClickCancel.bind(this);

@@ -10,11 +10,7 @@ const scope = 'user'
 class LoginButton extends Component {
   render() {
     return (
-      <Button
-        raised
-        accent
-        href={`${authorizeUrl}?client_id=${clientId}&scope=${scope}`}
-      >
+      <Button raised accent href={`${authorizeUrl}?client_id=${clientId}&scope=${scope}`}>
         <GithubIcon />
         {' '}
         Login with GitHub

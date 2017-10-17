@@ -4,13 +4,17 @@ import ListItem from 'react-toolbox/lib/list/ListItem';
 import ListSubHeader from 'react-toolbox/lib/list/ListSubHeader';
 import { sortObjects } from './utils';
 import './Tags.css';
+import PropTypes from 'prop-types'
+
 
 class Tags extends Component {
+
   handleClickTag(tag) {
     this.props.onClickTag(tag);
   }
 
   renderTags() {
+    
     const { tags } = this.props;
 
     if (tags == null) {
@@ -44,6 +48,10 @@ class Tags extends Component {
       </div>
     );
   }
+}
+Tags.propTypes = {
+  onClickTag: PropTypes.func.isRequired,
+  tags: PropTypes.array
 }
 
 export default Tags;

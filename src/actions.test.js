@@ -1,4 +1,4 @@
-import { createFlashcard, deleteFlashcard, updateFlashcard } from './actions';
+import { createFlashcard, deleteFlashcard, updateFlashcard, createTag } from './actions';
 
 describe('actions', () => {
   describe('createFlashcard', () => {
@@ -204,6 +204,35 @@ describe('actions', () => {
         selectedFlashcardIndex: null
       };
       expect(deleteFlashcard({id: 1}, prevState)).toEqual(newState);
+    });
+  });
+
+  //tags
+   describe('createTag', () => {
+    it('adds the new tag to tags', () => {
+      const prevTags = [{id: 1}];
+      const prevState = {
+        tags: prevTags,
+      };
+      const newTag = {id: 2};
+      const newState = {
+        tags: prevTags.concat(newTag),
+      };
+      expect(createTag(newTag, prevState)).toEqual(newState);
+    });
+
+
+    it('adds new tag to the tags removing duplicates', () => {
+  const prevTags = [{id: 1}, {id: 2}, {id: 3}]
+      const prevState = {
+        tags: prevTags,
+      };
+      const newTag = {id: 2};
+
+      const newState = {
+        tags: prevTags
+      };
+      expect(createTag(newTag, prevState)).toEqual(newState);
     });
   });
 });

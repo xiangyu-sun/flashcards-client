@@ -43,6 +43,26 @@ export function fetchTags(options) {
   });
 }
 
+export function createTag(options) {
+  const { token, tag } = options;
+  const url = `${baseApiUrl}/tags?token=${token}`;
+
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ tag })
+  })
+  .then(response => {
+    return response.json();
+  })
+  .catch(error => {
+    console.error('Could not create tag', error);
+  });
+}
+
 export function fetchFlashcards(options) {
   const { token, tag } = options;
   const url = `${baseApiUrl}/tags/${tag}/flashcards?token=${token}`;

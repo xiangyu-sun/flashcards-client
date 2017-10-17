@@ -4,6 +4,7 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import Flashcards from './Flashcards';
 import FlashcardDialog from './FlashcardDialog';
+import NewTagDialog from './NewTagDialog';
 import * as utils from './utils';
 import * as actions from './actions';
 import './Main.css';
@@ -18,7 +19,8 @@ class Main extends Component {
       selectedTagId: null,
       flashcards: null,
       selectedFlashcardIndex: null,
-      flashcardInDialog: null
+      flashcardInDialog: null,
+      tagInDialog: null
     };
 
     this.handleClickTag = this.handleClickTag.bind(this);
@@ -30,6 +32,11 @@ class Main extends Component {
     this.handleChangeFlashcard = this.handleChangeFlashcard.bind(this);
     this.handleSaveFlashcard = this.handleSaveFlashcard.bind(this);
     this.handleDeleteFlashcard = this.handleDeleteFlashcard.bind(this);
+
+    this.handleCreateTag = this.handleCreateTag.bind(this);
+    this.handleChangeTag = this.handleChangeTag.bind(this);
+    this.handleSaveTag = this.handleSaveTag.bind(this);
+    this.handleCancelTagDiag = this.handleCancelTagDiag.bind(this);
   }
 
   handleClickTag(tag) {
@@ -93,6 +100,36 @@ class Main extends Component {
     this.deleteFlashcard(flashcard);
   }
 
+  // tags
+
+  handleCreateTag() {
+    const tag = {
+      name: ''
+    };
+
+    this.setState({ tagInDialog: tag });
+  }
+  handleChangeTag(field, value) {
+    this.setState(prevState => {
+      const { tagInDialog } = prevState;
+      const newTagInDialog = Object.assign(
+        {},
+        tagInDialog,
+        { [field]: value }
+      );
+      return { tagInDialog: newTagInDialog };
+    });
+  }
+  handleSaveTag(tag) {
+      this.createTag(tag);
+      this.setState({ tagInDialog: null });
+  }
+
+  handleCancelTagDiag() {
+      this.setState({ tagInDialog: null });
+  }
+
+
   componentDidMount() {
     this.fetchUserDetails();
     this.fetchTags();
@@ -116,7 +153,8 @@ class Main extends Component {
       selectedTagId,
       flashcards,
       selectedFlashcardIndex,
-      flashcardInDialog
+      flashcardInDialog,
+      tagInDialog
     } = this.state;
 
     return (
@@ -128,6 +166,7 @@ class Main extends Component {
           <Sidebar
             tags={tags}
             onClickTag={this.handleClickTag}
+            onClickNewTag={this.handleCreateTag}
           />
           <Flashcards
             tagId={selectedTagId}
@@ -154,23 +193,26 @@ class Main extends Component {
           onSave={this.handleSaveFlashcard}
           onCancel={this.handleCancelFlashcardDialog}
         />
+        <NewTagDialog
+          tag={tagInDialog}
+          onChange={this.handleChangeTag}
+          onSave={this.handleSaveTag}
+          onCancel={this.handleCancelTagDiag}
+        />
+        
       </div>
     );
   }
 
   fetchUserDetails() {
     utils.fetchUserDetails({ token: this.props.token })
-      .then(info => {
+      .then(infos => {
+        var info = infos.pop();
         this.setState({ info })
       });
   }
 
-  fetchTags() {
-    utils.fetchTags({ token: this.props.token })
-      .then(tags => {
-        this.setState({ tags })
-      });
-  }
+  //flashcards
 
   fetchFlashcards(tag) {
     utils.fetchFlashcards({ token: this.props.token, tag })
@@ -197,6 +239,21 @@ class Main extends Component {
     utils.deleteFlashcard({ token: this.props.token, flashcard })
       .then(() => {
         this.setState(actions.deleteFlashcard.bind(null, flashcard));
+      });
+  }
+
+  //tags
+  fetchTags() {
+    utils.fetchTags({ token: this.props.token })
+      .then(tags => {
+        this.setState({ tags })
+      });
+  }
+
+  createTag(tag) {
+    utils.createTag({ token: this.props.token, tag })
+      .then(tag => {
+        this.setState(actions.createTag.bind(null, tag));
       });
   }
 }

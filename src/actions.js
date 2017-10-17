@@ -1,6 +1,7 @@
 import * as utils from './utils'
 
 export function createFlashcard(flashcard, prevState) {
+
   const idComparator = (a, b) => (a.id === b.id);
   // Add new tags to the current list of tags removing duplicates.
   const newTags = utils.union(prevState.tags, flashcard.tags, idComparator);
@@ -68,4 +69,14 @@ export function deleteFlashcard(flashcard, prevState) {
     flashcards: newFlashcards,
     selectedFlashcardIndex: newIndex
   }
+}
+
+
+export function createTag(tag, prevState) {
+  const nameComparator = (a, b) => (a.id === b.id);
+  // Add new tags to the current list of tags removing duplicates.
+  const newTags = utils.union(prevState.tags, tag, nameComparator);
+  return {
+    tags: newTags
+  };
 }

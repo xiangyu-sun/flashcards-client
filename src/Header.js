@@ -4,18 +4,21 @@ import Navigation from 'react-toolbox/lib/navigation/Navigation';
 import Link from 'react-toolbox/lib/link/Link';
 import Avatar from 'react-toolbox/lib/avatar/Avatar';
 import './Header.css';
-
+import PropTypes from 'prop-types'
 class Header extends Component {
+
   handleClickLogOut() {
     window.location.href = window.location.href.replace(/\?.*$/, '');
   }
 
   render() {
+
     const { info } = this.props;
 
     return (
       <AppBar title='Flashcards' leftIcon='menu'>
         <Navigation type='horizontal'>
+
           {info != null && (
             <span>
               <Avatar className='Header-userAvatar'
@@ -26,6 +29,7 @@ class Header extends Component {
               </span>
             </span>
           )}
+
           <Link
             href='#'
             active
@@ -34,10 +38,16 @@ class Header extends Component {
             className='Header-link'
             onClick={this.handleClickLogOut}
           />
+
         </Navigation>
       </AppBar>
     );
   }
+}
+
+Header.propTypes = {
+  info: PropTypes.object,
+  handleClickLogOut: PropTypes.func.isRequired
 }
 
 export default Header;
